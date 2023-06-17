@@ -1,12 +1,49 @@
 #include <Adafruit_NeoPixel.h>
 
+#define DEBUG 1
+
+#define LED_PIN 6
+#define LED_COUNT 8
+Adafruit_NeoPixel pixels(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
+
+const int knock = A0;
+int sensorVal = 0;
+int color[] = {255,0,0 ,0,255,0 ,0,0,255 ,255,0,255 ,255,255,0 ,0,255,255 , 255,255,255};
 
 void setup() {
+  Serial.begin(9600);
   setupNeopixel();
 }
 
 void loop() {
-  rainbow(10);             // Flowing rainbow cycle along the whole strip
+  while ((sensorVal = analogRead(knock)) < 10) {
+  }
+  Serial.println(sensorVal); 
+  knockSound();
+  changeColor();
+  delay(500);
+  // rainbow(10);             // Flowing rainbow cycle along the whole strip
+}
+
+void changeColor() {
+
+  int randomColor = random(7)+1;
+
+  if (DEBUG) Serial.println("changeColor : " + String(randomColor));
+
+  for (int i = 0; i < LED_COUNT; i++) {
+    pixels.setPixelColor(i, pixels.Color(color[(randomColor*3)-3], color[(randomColor*3)-2], color[(randomColor*3)-1]));
+    pixels.show();
+    delay(10);
+  }
+}
+
+void knockSound() {
+  if (DEBUG) Serial.println("knockSound");
+  tone(knock,1000,80);
+  delay(80);
+  noTone(knock); 
+  pinMode(knock, INPUT);
 }
 
 
@@ -15,14 +52,12 @@ void loop() {
   NeoPixel 
 */
 
-#define LED_PIN 6
-#define LED_COUNT 8
-Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
+
 
 void setupNeopixel() {
-  strip.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
-  strip.show();            // Turn OFF all pixels ASAP
-  strip.setBrightness(50); // Set BRIGHTNESS to about 1/5 (max = 255)
+  pixels.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
+  pixels.show();            // Turn OFF all pixels ASAP
+  pixels.setBrightness(50); // Set BRIGHTNESS to about 1/5 (max = 255)
 }
 
 // Rainbow cycle along whole strip. Pass delay time (in ms) between frames.
@@ -37,10 +72,10 @@ void rainbow(int wait) {
     // saturation and value (brightness) (both 0-255, similar to the
     // ColorHSV() function, default 255), and a true/false flag for whether
     // to apply gamma correction to provide 'truer' colors (default true).
-    strip.rainbow(firstPixelHue);
+    pixels.rainbow(firstPixelHue);
     // Above line is equivalent to:
     // strip.rainbow(firstPixelHue, 1, 255, 255, true);
-    strip.show(); // Update strip with new contents
+    pixels.show(); // Update strip with new contents
     delay(wait);  // Pause for a moment
   }
 
