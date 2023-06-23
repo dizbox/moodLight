@@ -24,7 +24,7 @@
     int min=1024, max=0;
     for (i=0; i <128; i++)     //take 128 samples
     {
-      val = analogRead(A0);
+      val = analogRead(A1);
       data[i] = val/4 - 128;
       im[i] = 0;
       if(val>max) max=val;    //store max & min sample
