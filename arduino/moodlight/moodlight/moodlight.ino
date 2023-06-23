@@ -9,6 +9,8 @@ Adafruit_NeoPixel pixels(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 const int knock = A0;
 int sensorVal = 0;
 int color[] = {255,0,0 ,0,255,0 ,0,0,255 ,255,0,255 ,255,255,0 ,0,255,255 , 255,255,255};
+int randomColor;
+
 
 void setup() {
   Serial.begin(9600);
@@ -26,8 +28,11 @@ void loop() {
 }
 
 void changeColor() {
-
-  int randomColor = random(7)+1;
+  int newRandomColor = random(7)+1;
+  while (randomColor == newRandomColor) {
+    newRandomColor = random(7)+1;
+  }
+  randomColor = newRandomColor;
 
   if (DEBUG) Serial.println("changeColor : " + String(randomColor));
 
