@@ -38,6 +38,7 @@
   {
     int dat = sqrt(data[i] * data[i] + im[i] * im[i]);
     display.drawLine(i*2 + x, ylim, i*2 + x, ylim - dat, WHITE);
+    Serial.println(dat);
   }
   display.setCursor(0,0); display.print("  Spectrum Analyzer");
   display.display();

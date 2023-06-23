@@ -1,3 +1,7 @@
+#include "fix_fft.h"
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
 #include <Adafruit_NeoPixel.h>
 
 #define DEBUG 1
@@ -11,10 +15,17 @@ int sensorVal = 0;
 int color[] = {255,0,0 ,0,255,0 ,0,0,255 ,255,0,255 ,255,255,0 ,0,255,255 , 255,255,255};
 int randomColor;
 
+Adafruit_SSD1306 display(128, 64, &Wire, 4);
+char im[128], data[128]; char x = 0, ylim = 60; int i = 0, val;
 
 void setup() {
   Serial.begin(9600);
   setupNeopixel();
+  display.begin(SSD1306_SWITCHCAPVCC,0x3C);
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.clearDisplay();
+  analogReference(DEFAULT);
 }
 
 void loop() {
@@ -27,7 +38,10 @@ void loop() {
   // rainbow(10);             // Flowing rainbow cycle along the whole strip
 }
 
+
+
 void changeColor() {
+  Serial.println("run");
   int newRandomColor = random(7)+1;
   while (randomColor == newRandomColor) {
     newRandomColor = random(7)+1;

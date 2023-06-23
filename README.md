@@ -28,3 +28,5 @@ Audio Equalizer with Neopixel on Arduino
 * [FFT library](https://www.arduino.cc/reference/en/libraries/fix_fft/)
 * [LM393](https://increase-life.tistory.com/35)
 * [0.96인치OLED](https://blog.naver.com/PostView.naver?blogId=emperonics&logNo=222081054316&categoryNo=0&parentCategoryNo=0)
+* [WS2812 Datasheet](https://vctec.co.kr/web/product/adafruit/pdf/WS2812.pdf)
+* [아두이노 네오픽셀](https://blog.naver.com/roboholic84/222358916122)
