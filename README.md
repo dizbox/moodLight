@@ -19,6 +19,9 @@ Audio Equalizer with Neopixel on Arduino
 * A5 - OLED SCL
 * D6(output) - neopixel input
 
+# 이슈 해결
+* Adafruit_NeoPixel, Adafruit_SSD1306 충둘
+    * https://community.platformio.org/t/adafruit-library-conflicts-ssd1306-and-neopixel/15598
 
 # 참고문서
 * 코코아팸
@@ -30,3 +33,4 @@ Audio Equalizer with Neopixel on Arduino
 * [0.96인치OLED](https://blog.naver.com/PostView.naver?blogId=emperonics&logNo=222081054316&categoryNo=0&parentCategoryNo=0)
 * [WS2812 Datasheet](https://vctec.co.kr/web/product/adafruit/pdf/WS2812.pdf)
 * [아두이노 네오픽셀](https://blog.naver.com/roboholic84/222358916122)
+* [fastled](https://github.com/FastLED/FastLED)
