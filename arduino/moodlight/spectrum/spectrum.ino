@@ -12,24 +12,33 @@
   void setup()
   {
     Serial.begin(9600);
-    display.begin(SSD1306_SWITCHCAPVCC,0x3C);
-    display.setTextSize(1);
-    display.setTextColor(WHITE);
-    display.clearDisplay();
-    analogReference(DEFAULT);
+    setupSound();
   }
   //==============================================================
   void loop()
   {
-    int min=1024, max=0;
-    for (i=0; i <128; i++)     //take 128 samples
-    {
-      val = analogRead(A1);
-      data[i] = val/4 - 128;
-      im[i] = 0;
-      if(val>max) max=val;    //store max & min sample
-      if(val<min) min=val;
-    }
+    showSound();
+
+  } 
+
+void setupSound() {
+  display.begin(SSD1306_SWITCHCAPVCC,0x3C);
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.clearDisplay();
+  analogReference(DEFAULT);  
+}
+
+void showSound() {
+  int min=1024, max=0;
+  for (i=0; i <128; i++)     //take 128 samples
+  {
+    val = analogRead(A1);
+    data[i] = val/4 - 128;
+    im[i] = 0;
+    if(val>max) max=val;    //store max & min sample
+    if(val<min) min=val;
+  }
   //------------------------------------------
   fix_fft(data, im, 7, 0);    //FFT on data
   //------------------------------------------  
